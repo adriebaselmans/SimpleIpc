@@ -1,4 +1,4 @@
-# SimpleIpc
+#SimpleIpc
 
 SimpleIpc offers a simpe interprocess communication library for the .NET platform.
 It is written in C# as an alternative to WCF, aiming to be simpler in use and offer reasonable performance.
