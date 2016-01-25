@@ -12,7 +12,7 @@ Example:
     var server = new IpcServer<ICalculator>(calculatorImp, IPAddress.Loopback, 62001);
     server.Listen();
     
-    var client = new IpcClient<ICalculator>(IPAddress.Loopback, 62001, new JsonDotNetSerializer());
+    var client = new IpcClient<ICalculator>(IPAddress.Loopback, 62001);
     var result = client.Proxy.Add(2,4); //Would return 6 :)
 
 SimpleIpc provides a basic way to send bigger chunks of data in a more efficient way without serialization.
