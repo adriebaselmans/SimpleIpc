@@ -7,14 +7,10 @@ Simple Ipc offers a multi-client single-server model.
 ----------------------------------------------------------------------------------------------------------------------
 
 Example: 
-
-  //for a service exposing a calculator interface:
   var calculatorImp = new CalculatorImp();
   var server = new IpcServer<ICalculator>(calculatorImp, IPAddress.Loopback, 62001);
   server.Listen();
                 
-  //for a client consuming such a service:
-
   var client = new IpcClient<ICalculator>(IPAddress.Loopback, 62001, new JsonDotNetSerializer());
   var result = client.Proxy.Add(2,4); //Would return 6 :)
 
@@ -23,7 +19,6 @@ This is called a bulk transfer and uses a TCP stream directly for higher transfe
 The user can use this by specifying an interface using a Stream as the return type.
 
 Example:
-
   public interface IFileTransfer
   {
     MemoryStream TransferFile(string filePath);
@@ -33,15 +28,11 @@ Furthermore, a mechanism is provided to advertise a service on a network:
 ----------------------------------------------------------------------------------------------------------------------
 
 Example:
-
-  //Advertising a service
   var multiCastAddress = IPAddress.Parse("239.0.0.222");
   var advertiser = new ServiceAdvertiser<ICalculator>(multiCastAddress, 2222, TimeSpan.FromMilliseconds(1000));
-  
-  //Detecting these advertisements on the network
-  var multiCastAddress = IPAddress.Parse("239.0.0.222");
-  _serviceDiscoverer = new ServiceDiscoverer<ICalculator>(multiCastAddress, 2222);
-  _serviceDiscoverer.OnServiceFound += ServiceDiscovererOnOnServiceFound; //e.g. connect to this service...
+
+  var serviceDiscoverer = new ServiceDiscoverer<ICalculator>(multiCastAddress, 2222);
+  serviceDiscoverer.OnServiceFound += ServiceDiscovererOnOnServiceFound; //e.g. connect to this service...
   
   
 
